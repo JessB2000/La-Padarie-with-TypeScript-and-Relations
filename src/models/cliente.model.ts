@@ -2,17 +2,17 @@ import { dbQuery, dbQueryFirst } from "../services/db"
 
 export type Cliente = {
     id: number;
-    nome: string;
+    nome: string; 
 }
 
 const insertCliente = async (cliente: Cliente) => {
     await dbQuery(`INSERT INTO cliente (nome) VALUES(?)`, [cliente.nome])
-    let retorno = await dbQuery(`SELECT seq AS Id FROM sqlite_sequence WHERE nome = 'cliente'`);
+    let retorno = await dbQuery(`SELECT seq AS Id FROM sqlite_sequence WHERE  nome = 'cliente'`);
     return getCliente(retorno[0].Id);
 }
 
 const updateCliente = async (cliente: Cliente) => {
-    await dbQuery(`UPDATE cliente SET nome = ? WHERE id = ?`, [cliente.nome, cliente.id])
+    await dbQuery(`UPDATE cliente SET nome = ?  WHERE id = ?`, [cliente.nome, cliente.id])
     return getCliente(cliente.id);
 }
 
@@ -27,7 +27,7 @@ const getCliente = async (id: number) => {
 }
 
 const deleteCliente = async (id: number) => {
-    await dbQueryFirst(`DELETE FROM product WHERE id = ?`, [id]);
+    await dbQueryFirst(`DELETE FROM cliente WHERE id = ?`, [id]);
 }
 
 export const clienteModel = {

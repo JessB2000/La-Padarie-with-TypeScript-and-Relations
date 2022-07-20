@@ -59,7 +59,7 @@ const listCliente = ({}: Request, res: Response) => {
         .catch(err => internalServerError(res, err));
 }
 
-const getCliente = ({req}: Request, res: Response) => {
+const getCliente = (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     {
         if(!validateNumber(id))
