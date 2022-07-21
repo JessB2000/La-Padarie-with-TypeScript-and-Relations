@@ -2,24 +2,22 @@ import { dbQuery, dbQueryFirst } from "../services/db"
 
 export type Item = {
     id: number;
-    nomeItem: string;
-    area: string;
+    quantidade: number; 
+}
+const listItem = async () => {
+    const retorno = await dbQuery(`SELECT * FROM item`);
+    return retorno as Item[];
 }
 
 const insertItem = async (item: Item) => {
-    await dbQuery(`INSERT INTO item (nomeItem, area) VALUES(?, ?)`, [item.nomeItem, item.area])
-    let retorno = await dbQuery(`SELECT seq AS Id FROM sqlite_sequence WHERE  nomeItem = 'item', area = 'area'`);
+    await dbQuery(`INSERT INTO item (quantidade) VALUES(?, ?)`, [item.quantidade])
+    let retorno = await dbQuery(`SELECT seq AS Id FROM sqlite_sequence WHERE  quantidade = 'item'`);
     return getItem(retorno[0].Id);
 }
 
 const updateItem = async (item: Item) => {
-    await dbQuery(`UPDATE item SET nomeItem = ?, area = ? WHERE id = ?`, [item.nomeItem, item.area, item.id])
+    await dbQuery(`UPDATE item SET quantidade = ? WHERE id = ?`, [item.quantidade, item.id])
     return getItem(item.id);
-}
-
-const listItem = async () => {
-    const retorno = await dbQuery(`SELECT * FROM item`);
-    return retorno as Item[];
 }
 
 const getItem = async (id: number) => {

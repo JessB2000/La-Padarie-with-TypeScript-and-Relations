@@ -2,25 +2,21 @@ import { dbQuery, dbQueryFirst } from "../services/db"
 
 export type Pedido = {
     id: number;
-    produto: string;
-    data: number;
-    quantidade: number; 
+    entrega: number; 
 }
-
+const listPedido = async () => {
+    const retorno = await dbQuery(`SELECT * FROM pedido`);
+    return retorno as Pedido[];
+}
 const insertPedido = async (pedido: Pedido) => {
-    await dbQuery(`INSERT INTO pedido (produto, data, quantidade) VALUES(?, ?, ?)`, [pedido.produto, pedido.data, pedido.quantidade])
-    let retorno = await dbQuery(`SELECT seq AS Id FROM sqlite_sequence WHERE  produto = 'pedido', data = 'pedido', quantidade = 'quantidade'`);
+    await dbQuery(`INSERT INTO pedido (entrega) VALUES(?, ?, ?)`, [pedido.entrega])
+    let retorno = await dbQuery(`SELECT seq AS Id FROM sqlite_sequence WHERE  entrega = 'pedido'`);
     return getPedido(retorno[0].Id);
 }
 
 const updatePedido = async (pedido: Pedido) => {
-    await dbQuery(`UPDATE pedido SET produto = ?, data = ?, quantidade = ? WHERE id = ?`, [pedido.produto, pedido.data, pedido.quantidade])
+    await dbQuery(`UPDATE pedido SET entrega = ? WHERE id = ?`, [pedido.entrega, pedido.id])
     return getPedido(pedido.id);
-}
-
-const listPedido = async () => {
-    const retorno = await dbQuery(`SELECT * FROM pedido`);
-    return retorno as Pedido[];
 }
 
 const getPedido = async (id: number) => {

@@ -9,14 +9,8 @@ const insertPedido = (req: Request, res: Response) => {
         if (!pedido)
             return badRequest(res, "Pedido inválido");
 
-        if (!pedido.produto)
-            return badRequest(res, 'Informe o produto');
-
-        if (!validateNumber(pedido.data))
-            return badRequest(res, 'Informe a data');
-
-        if (!validateNumber(pedido.quantidade))
-            return badRequest(res, 'Informe a quantidade');
+        if (!validateNumber(pedido.entrega))
+            return badRequest(res, 'Informe o valor da entrega, se for retirada, digite 0,00');
     }
 
     const pedido = req.body as Pedido;
@@ -39,11 +33,8 @@ const updatePedido = async (req: Request, res: Response) => {
         if (!pedido)
             return badRequest(res, "Pedido inválido");
 
-        if (!pedido.produto)
-            return badRequest(res, 'Informe o produto');
-
-        if (!validateNumber(pedido.data))
-            return badRequest(res, 'Informe a data');
+        if (!validateNumber(pedido.entrega))
+            return badRequest(res, 'Informe o valor da entrega, se for retirada, digite 0,00');
 
         const pedidoSaved = await pedidoModel.getPedido(id);
         if(!pedidoSaved)

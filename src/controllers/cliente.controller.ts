@@ -11,6 +11,12 @@ const insertCliente = (req: Request, res: Response) => {
 
         if (!cliente.nome)
             return badRequest(res, 'Informe o nome do cliente');
+        
+        if (!cliente.endereco)
+            return badRequest(res, 'Informe o endereço corretamente');
+
+        if (!cliente.cpf)
+            return badRequest(res, 'Informe o cpf corretamente');
 
     }
 
@@ -36,6 +42,12 @@ const updateCliente = async (req: Request, res: Response) => {
 
         if (!cliente.nome)
             return badRequest(res, 'Informe o nome do cliente');
+
+        if (!cliente.endereco)
+            return badRequest(res, 'Informe o endereço corretamente');
+
+        if (!cliente.cpf)
+            return badRequest(res, 'Informe o cpf corretamente');
 
         const clienteSaved = await clienteModel.getCliente(id);
         if(!clienteSaved)

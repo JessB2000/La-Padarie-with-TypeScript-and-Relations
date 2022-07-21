@@ -9,11 +9,9 @@ const insertItem = (req: Request, res: Response) => {
         if (!item)
             return badRequest(res, "Item inválido");
 
-        if (!item.nomeItem)
+        if (!item.quantidade)
             return badRequest(res, 'Informe o nome do item');
 
-            if (!item.area)
-            return badRequest(res, 'Informe o nome da área');
     }
 
     const item = req.body as Item;
@@ -36,12 +34,9 @@ const updateItem = async (req: Request, res: Response) => {
         if (!item)
             return badRequest(res, "Item inválido");
 
-        if (!item.nomeItem)
+        if (!item.quantidade)
             return badRequest(res, 'Informe o nome do Item');
-
-        if (!item.nomeItem)
-            return badRequest(res, 'Informe a área');
-
+            
         const itemSaved = await itemModel.getItem(id);
         if(!itemSaved)
             return notFound(res);
