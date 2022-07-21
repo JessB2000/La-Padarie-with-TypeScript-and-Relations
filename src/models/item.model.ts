@@ -5,7 +5,7 @@ export type Item = {
     quantidade: number; 
 }
 const listItem = async () => {
-    const retorno = await dbQuery(`SELECT * FROM item`);
+    const retorno = await dbQuery(`SELECT produto.id, produto.nomeP, produto.area, item.quantidade, produto.preco FROM item JOIN produto ON item.id_produto = produto.id WHERE item.id_pedido = 1`);
     return retorno as Item[];
 }
 

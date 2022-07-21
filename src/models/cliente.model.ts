@@ -8,7 +8,7 @@ export type Cliente = {
 }
 
 const listCliente = async () => {
-    const retorno = await dbQuery(`SELECT cliente.*, cliente.id_pedido, pedido.entrega FROM Cliente JOIN pedido ON pedido.id = cliente.id_pedido`);
+    const retorno = await dbQuery(`SELECT cliente.*, cliente.id_pedido, pedido.entrega FROM cliente INNER JOIN pedido ON pedido.id = cliente.id_pedido`);
     return retorno as Cliente[];
 }
 const insertCliente = async (cliente: Cliente) => {
@@ -18,7 +18,7 @@ const insertCliente = async (cliente: Cliente) => {
 }
 
 const updateCliente = async (cliente: Cliente) => {
-    await dbQuery(`UPDATE cliente SET nome = ?, endereco = ?, cpf = ? WHERE id = ?`, [cliente.nome, cliente.endereco, cliente.cpf, cliente.id])
+    await dbQuery(`SELECT cliente.*, cliente.id_pedido, pedido.entrega FROM cliente INNER JOIN pedido ON pedido.id = cliente.id_pedido WHERE id = ?`, [cliente.nome, cliente.endereco, cliente.cpf, cliente.id])
     return getCliente(cliente.id);
 }
 
