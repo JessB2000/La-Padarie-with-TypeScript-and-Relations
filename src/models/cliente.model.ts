@@ -8,7 +8,7 @@ export type Cliente = {
 }
 
 const listCliente = async () => {
-    const retorno = await dbQuery(`SELECT * FROM cliente`);
+    const retorno = await dbQuery(`SELECT cliente.*, cliente.id_pedido, pedido.entrega FROM Cliente JOIN pedido ON pedido.id = cliente.id_pedido`);
     return retorno as Cliente[];
 }
 const insertCliente = async (cliente: Cliente) => {

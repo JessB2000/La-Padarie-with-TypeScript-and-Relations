@@ -1,7 +1,11 @@
-import express, {Request, Response} from "express"
+import express from 'express';
+import { useRoutes } from './routes';
+import bodyParser from 'body-parser';
 
-const PORT = 3000; 
+const PORT = 3000;
 
-const app = express(); 
+const app = express();
+app.use(bodyParser.json());
+useRoutes(app);
 
-app.listen(PORT, () => console.log("Servidor Conectado"))
+app.listen(PORT, () => console.log('Servidor iniciado na porta ' + PORT));

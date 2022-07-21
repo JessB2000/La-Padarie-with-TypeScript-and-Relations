@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import sqlite3 from 'sqlite3';
 
 const DATABASE_FILE = process.env.DATABASE_FILE;
