@@ -5,7 +5,7 @@ export type Pedido = {
     entrega: number; 
 }
 const listPedido = async () => {
-    const retorno = await dbQuery(`SELECT pedidos.*, SUM (item.quantidade * produto.preço) AS subtotal FROM pedido LEFT JOIN item ON item.id_pedido = pedido.id LEFT JOIN produto ON produto.id = item.id_produto`);
+    const retorno = await dbQuery(`SELECT pedido.*, SUM (item.quantidade * produto.preco) AS subtotal FROM pedido LEFT JOIN item ON item.id_pedido = pedido.id LEFT JOIN produto ON produto.id = item.id_produto`);
     return retorno as Pedido[];
 }
 const insertPedido = async (pedido: Pedido) => {
@@ -20,7 +20,7 @@ const updatePedido = async (pedido: Pedido) => {
 }
 
 const getPedido = async (id: number) => {
-    const retorno = await dbQueryFirst(`SELECT pedidos.*, SUM (item.quantidade * produto.preço) AS subtotal FROM pedido LEFT JOIN item ON item.id_pedido = pedido.id LEFT JOIN produto ON produto.id = item.id_produto WHERE id = ?`, [id]);
+    const retorno = await dbQueryFirst(`SELECT pedido.*, SUM (item.quantidade * produto.preco) AS subtotal FROM pedido LEFT JOIN item ON item.id_pedido = pedido.id LEFT JOIN produto ON produto.id = item.id_produto WHERE id = ?`, [id]);
     return retorno as Pedido | undefined;
 }
 
