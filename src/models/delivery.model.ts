@@ -5,7 +5,7 @@ export type Delivery = {
     codigo: number; 
 }
 const listDelivery = async () => {
-    const retorno = await dbQuery(`SELECT delivery.*, delivery.id_cliente, cliente.nome, cliente.endereco, cliente.cpf FROM delivery INNER JOIN cliente ON cliente.id = delivery.id_cliente`);
+    const retorno = await dbQuery(`SELECT delivery.*, cliente.nome, cliente.endereco, cliente.cpf FROM delivery INNER JOIN cliente ON cliente.id = delivery.id_cliente`);
     return retorno as Delivery[];
 }
 const insertDelivery = async (delivery: Delivery) => {

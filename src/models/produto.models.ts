@@ -7,7 +7,7 @@ export type Produto = {
     preco: number;  
 }
 const listProduto = async () => {
-    const retorno = await dbQuery(`SELECT * FROM produto`);
+    const retorno = await dbQuery(`SELECT produto.nomeP, produto.area, produto.preco FROM produto`);
     return retorno as Produto[];
 }
 const insertProduto = async (produto: Produto) => {
