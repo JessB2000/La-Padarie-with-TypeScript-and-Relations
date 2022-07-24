@@ -9,7 +9,7 @@ const listPedido = async () => {
     return retorno as Pedido[];
 }
 const insertPedido = async (pedido: Pedido) => {
-    await dbQuery(`INSERT INTO pedido (entrega) VALUES(?, ?, ?)`, [pedido.entrega])
+    await dbQuery(`INSERT INTO pedido (entrega) VALUES(?)`, [pedido.entrega])
     let retorno = await dbQuery(`SELECT seq AS Id FROM sqlite_sequence WHERE  entrega = 'pedido'`);
     return getPedido(retorno[0].Id);
 }

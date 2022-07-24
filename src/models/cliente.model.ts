@@ -5,6 +5,7 @@ export type Cliente = {
     nome: string; 
     endereco: string; 
     cpf: string;
+    id_pedido: number; 
 }
 
 const listCliente = async () => {
@@ -12,18 +13,18 @@ const listCliente = async () => {
     return retorno as Cliente[];
 }
 const insertCliente = async (cliente: Cliente) => {
-    await dbQuery(`INSERT INTO cliente (nome,endereco, cpf) VALUES(?)`, [cliente.nome, cliente.endereco, cliente.cpf])
-    let retorno = await dbQuery(`SELECT seq AS Id FROM sqlite_sequence WHERE  nome = 'cliente', endereco = 'cliente', cpf = 'cliente'`);
+    await dbQuery(`INSERT INTO cliente (nome,endereco, cpf, id_pedido) VALUES(?, ?, ?, ?)`, [cliente.nome, cliente.endereco, cliente.cpf, cliente.id_pedido])
+    let retorno = await dbQuery(`SELECT seq AS Id FROM sqlite_sequence WHERE  nome = 'cliente', endereco = 'cliente', cpf = 'cliente', id_pedido = 'cliente'`);
     return getCliente(retorno[0].Id);
 }
 
 const updateCliente = async (cliente: Cliente) => {
-    await dbQuery(`SELECT cliente.*, cliente.id_pedido, pedido.entrega FROM cliente INNER JOIN pedido ON pedido.id = cliente.id_pedido WHERE id = ?`, [cliente.nome, cliente.endereco, cliente.cpf, cliente.id])
+    await dbQuery(`UPDATE delivery SET nome = ?, endereco = ?, cpf = ?, id_pedido = ?  WHERE id = ?`, [cliente.nome, cliente.endereco, cliente.cpf, cliente.id_pedido, cliente.id])
     return getCliente(cliente.id);
 }
 
 const getCliente = async (id: number) => {
-    const retorno = await dbQueryFirst(`SELECT * FROM cliente WHERE id = ?`, [id]);
+    const retorno = await dbQueryFirst(`SELECT cliente.*,pedido.entrega FROM cliente JOIN pedido ON pedido.id = cliente.id_pedido WHERE id = ?`, [id]);
     return retorno as Cliente | undefined;
 }
 
