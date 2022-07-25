@@ -11,7 +11,7 @@ const listProduto = async () => {
     return retorno as Produto[];
 }
 const insertProduto = async (produto: Produto) => {
-    await dbQuery(`INSERT INTO produto (nomeP, area, preco) VALUES(?, ?, ?)`, [produto.nomeP, produto.area, produto.preco])
+    await dbQuery(`INSERT INTO produto(nomeP, area, preco) VALUES(?, ?, ?)`, [produto.nomeP, produto.area, produto.preco])
     let retorno = await dbQuery(`SELECT seq AS Id FROM sqlite_sequence WHERE  nomeP = 'produto', area = 'produto', preco = 'produto' `);
     return getProduto(retorno[0].Id);
 }
